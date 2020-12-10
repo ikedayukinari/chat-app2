@@ -16,6 +16,13 @@
         <label class='chat-room-form__label' for='chat_room_チャットメンバー'>チャットメンバー</label>
       </div>
       <div class='chat-room-form__field--right'>
+        <select name="room[user_ids][]"> <!--select要素のname属性にuser.idを指定、そのことでparamsの中身が{"room" => {"user_ids" => ["選択したユーザーのid"]}} になる-->
+          <option value="">チャットするユーザーを選択してください</option> <!--選択肢1つ目にはvalue属性を追加し、-->
+          <% User.where.not(id: current_user.id).each do |user| %> <!--現在ログインしているユーザー以外のレコードを取得している-->
+            <option value=<%= user.id %>><%= user.name %></option> <!--選択肢2つ目以降はユーザー名を全員分繰り返し処理して表示している-->
+          <% end %>
+        </select>
+        <input name="room[user_ids][]" type="hidden" value=<%= current_user.id %>>
       </div>
     </div>
     <div class='chat-room-form__field'>
