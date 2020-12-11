@@ -1,18 +1,18 @@
 <div class="chat-header">
   <div class="left-header">
     <div class="header-title">
-      <%= @room.name %>
+      <%= @room.name %> <!--messages#indexの@room-->
     </div>
   </div>
   <div class="right-header">
     <div class="header-button">
-      <a href="#">チャットを終了する</a>
+      <%= link_to "チャットを終了する", room_path(@room.id), method: :delete %> <!--messages#indexの@room-->
     </div>
   </div>
 </div>
 
 <div class="messages">
-  <%= render partial: 'message', collection: @messages %>
+  <%= render partial: 'message', collection: @messages %> <!--(render)collection: @---sの形に関してはローカル変数に代入しなくてもmessageとして使うことができる-->
 </div>
 
 <!--model: [@room, @message]になっているのはmessagesのルーティングがroomsにネストされているため-->
