@@ -20,6 +20,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params #roomsテーブルとネストを組んでいるのでコントローラーにきている時点でroom_idは埋まっている
-    params.require(:message).permit(:content).merge(user_id: current_user.id)#(room_id: params[:room_id]) @message = @room.new(message_params)の場合
+    params.require(:message).permit(:content, :image).merge(user_id: current_user.id)#(room_id: params[:room_id]) @message = @room.new(message_params)の場合
   end
 end
