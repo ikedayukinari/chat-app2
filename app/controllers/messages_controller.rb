@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   def index
     @message = Message.new #Messageモデルの空のインスタンスを渡す
     @room = Room.find(params[:room_id])
+    @messages = @room.messages.includes(:user) #チャットルーム紐づいている全てのメッセージ(@room.messages)
   end #messagesテーブルはルーティングをネストしているためパスが/rooms/:room_id/messagesになっている。パスにroom_idが含まれているため[:room_id]と記述することで取り出せる
 
   def create
@@ -11,6 +12,7 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to room_messages_path(@room) #messages#indexに返して、新たにインスタンス変数を生成している
     else
+      @messages = @room.messages.includes(:user) #失敗した時にも@messagesの定義がないとエラーが出る
       render :index #indexアクションのindex.html.erbを表示するようにしている。同じページに戻る
     end
   end
