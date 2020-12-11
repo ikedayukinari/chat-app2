@@ -11,8 +11,8 @@
   <% current_user.rooms.each do |room| %>
     <div class="room">
       <div class="room-name">
-        <a href="#"><%= room.name %></a> <!--nameはroomsテーブルのカラム名-->
-      </div>
+        <%= link_to room.name, room_messages_path(room.id) %> <!--nameはroomsテーブルのカラム名-->
+      </div> <!--パスはroomを引数とする事で、メッセージと紐づいているチャットルームのidを持すことができる-->
     </div>
   <% end %>
 </div>
